@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9TRTCP111W"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-9TRTCP111W');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BudgetSimple - Free Budget Templates & Financial Tools</title>
@@ -92,6 +101,15 @@
         
         .btn:hover {
             background: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background: #e6c200;
         }
         
         /* Hero Section */
@@ -286,6 +304,55 @@
             margin-bottom: 0.5rem;
         }
         
+        /* Articles Section */
+        .articles {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+        
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .article-img {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .article-content {
+            padding: 1.5rem;
+        }
+        
+        .article-content h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .article-meta {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
         /* Footer */
         footer {
             background: var(--dark);
@@ -373,7 +440,7 @@
         <div class="container">
             <h1>Take Control of Your Finances</h1>
             <p>Free budget templates, simple calculators, and expert advice to help you achieve financial stability.</p>
-            <a href="#templates" class="btn" style="background: var(--secondary); color: var(--dark);">Get Free Templates</a>
+            <a href="#templates" class="btn btn-secondary">Get Free Templates</a>
         </div>
     </section>
 
@@ -491,7 +558,7 @@
                     <div class="template-content">
                         <h3>Monthly Budget</h3>
                         <p>Simple template for tracking monthly income and expenses.</p>
-                        <a href="#" class="btn" style="margin-top: 1rem;">Download</a>
+                        <button class="btn download-btn" data-template="monthly-budget">Download</button>
                     </div>
                 </div>
                 <div class="template-card">
@@ -499,7 +566,7 @@
                     <div class="template-content">
                         <h3>Savings Goal Tracker</h3>
                         <p>Plan and track progress toward your financial goals.</p>
-                        <a href="#" class="btn" style="margin-top: 1rem;">Download</a>
+                        <button class="btn download-btn" data-template="savings-tracker">Download</button>
                     </div>
                 </div>
                 <div class="template-card">
@@ -507,7 +574,46 @@
                     <div class="template-content">
                         <h3>Debt Payoff Planner</h3>
                         <p>Create a strategy to eliminate debt efficiently.</p>
-                        <a href="#" class="btn" style="margin-top: 1rem;">Download</a>
+                        <button class="btn download-btn" data-template="debt-planner">Download</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Articles Section -->
+    <section class="articles" id="articles">
+        <div class="container">
+            <div class="section-title">
+                <h2>Financial Articles & Guides</h2>
+                <p>Learn from expert advice and improve your financial literacy</p>
+            </div>
+            <div class="articles-grid">
+                <div class="article-card">
+                    <div class="article-img">💰</div>
+                    <div class="article-content">
+                        <h3>How to Create Your First Budget</h3>
+                        <div class="article-meta">5 min read • Beginner</div>
+                        <p>A step-by-step guide to creating a budget that works for your lifestyle and financial goals.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Read Article</a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-img">📈</div>
+                    <div class="article-content">
+                        <h3>5 Simple Ways to Save Money</h3>
+                        <div class="article-meta">7 min read • All Levels</div>
+                        <p>Practical strategies to reduce expenses and increase your savings without drastic lifestyle changes.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Read Article</a>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-img">💳</div>
+                    <div class="article-content">
+                        <h3>Debt Payoff Strategies That Work</h3>
+                        <div class="article-meta">10 min read • Intermediate</div>
+                        <p>Compare the snowball and avalanche methods to find the best approach for your debt situation.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Read Article</a>
                     </div>
                 </div>
             </div>
@@ -548,12 +654,12 @@
                         <li><a href="#">Terms of Service</a></li>
                     </ul>
                 </div>
-                 <div style="text-align: center; margin-top: 2rem; font-size: 0.8rem;">
-        <a href="ai-dashboard.html" style="color: #666; text-decoration: none;">Admin</a>
-        </div>
             </div>
             <div class="copyright">
                 <p>&copy; 2023 BudgetSimple. All rights reserved.</p>
+            </div>
+            <div style="text-align: center; margin-top: 2rem; font-size: 0.8rem;">
+                <a href="ai-dashboard.html" style="color: #666; text-decoration: none;">Admin</a>
             </div>
         </div>
     </footer>
@@ -590,6 +696,14 @@
             
             document.getElementById('calculate-results').addEventListener('click', calculateResults);
             document.getElementById('start-over').addEventListener('click', startOver);
+            
+            // Template download functionality
+            document.querySelectorAll('.download-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const templateName = this.getAttribute('data-template');
+                    downloadTemplate(templateName);
+                });
+            });
             
             function calculateResults() {
                 // Get income values
@@ -636,6 +750,38 @@
                 
                 // Go back to first tab
                 document.querySelector('.tab[data-tab="income"]').click();
+            }
+            
+            function downloadTemplate(templateName) {
+                const templates = {
+                    'monthly-budget': {
+                        name: 'Monthly Budget Template.xlsx',
+                        message: 'Monthly Budget template downloaded!'
+                    },
+                    'savings-tracker': {
+                        name: 'Savings Goal Tracker.xlsx',
+                        message: 'Savings Goal Tracker downloaded!'
+                    },
+                    'debt-planner': {
+                        name: 'Debt Payoff Planner.xlsx', 
+                        message: 'Debt Payoff Planner downloaded!'
+                    }
+                };
+                
+                const template = templates[templateName];
+                if (template) {
+                    // Create a temporary download link
+                    const link = document.createElement('a');
+                    link.href = '#'; // In a real site, this would point to actual file URLs
+                    link.download = template.name;
+                    link.click();
+                    
+                    // Show success message
+                    alert(`✅ ${template.message}\n\nIn a real application, this would download the actual template file.`);
+                    
+                    // Track download (in a real app, you'd send this to analytics)
+                    console.log(`Template downloaded: ${template.name}`);
+                }
             }
         });
     </script>

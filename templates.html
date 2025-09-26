@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Free Budget Templates - BudgetSimple</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9TRTCP111W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-9TRTCP111W');
+    </script>
+    
     <style>
         :root {
             --primary: #2E8B57;
@@ -94,6 +104,11 @@
             background: var(--primary-dark);
         }
         
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--dark);
+        }
+        
         /* Hero Section */
         .hero {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
@@ -163,6 +178,7 @@
             overflow: hidden;
             transition: transform 0.3s, box-shadow 0.3s;
             background: white;
+            display: block;
         }
         
         .template-card:hover {
@@ -223,6 +239,118 @@
         .download-btn:hover {
             background: var(--primary);
             color: white;
+        }
+        
+        /* Interactive Tools Section */
+        .tools-section {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+        
+        .tool-container {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .tool-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tool-tab {
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tool-tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .tool-content {
+            display: none;
+        }
+        
+        .tool-content.active {
+            display: block;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .results.active {
+            display: block;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .result-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-top: 2px solid #ddd;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #eee;
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 10px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .debt-list {
+            margin: 1rem 0;
+        }
+        
+        .debt-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
         }
         
         /* Footer */
@@ -291,6 +419,10 @@
                 flex-direction: column;
                 align-items: center;
             }
+            
+            .download-options {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -314,8 +446,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Free Budget Templates</h1>
-            <p>Download professional templates for Excel, Google Sheets, and PDF</p>
+            <h1>Free Budget Templates & Tools</h1>
+            <p>Download professional templates and use interactive financial calculators</p>
         </div>
     </section>
 
@@ -323,8 +455,8 @@
     <section class="templates">
         <div class="container">
             <div class="section-title">
-                <h2>Choose Your Template</h2>
-                <p>Select from our collection of free, professionally designed budget templates</p>
+                <h2>Free Budget Templates</h2>
+                <p>Choose the template that works best for your financial situation</p>
             </div>
             
             <div class="filter-buttons">
@@ -346,9 +478,9 @@
                             <span>Downloads: 2,458</span>
                         </div>
                         <div class="download-options">
-                            <a href="#" class="download-btn">Excel</a>
-                            <a href="#" class="download-btn">PDF</a>
-                            <a href="#" class="download-btn">Sheets</a>
+                            <a href="#" class="download-btn" data-format="excel">Excel</a>
+                            <a href="#" class="download-btn" data-format="pdf">PDF</a>
+                            <a href="#" class="download-btn" data-format="sheets">Sheets</a>
                         </div>
                     </div>
                 </div>
@@ -363,9 +495,9 @@
                             <span>Downloads: 1,892</span>
                         </div>
                         <div class="download-options">
-                            <a href="#" class="download-btn">Excel</a>
-                            <a href="#" class="download-btn">PDF</a>
-                            <a href="#" class="download-btn">Sheets</a>
+                            <a href="#" class="download-btn" data-format="excel">Excel</a>
+                            <a href="#" class="download-btn" data-format="pdf">PDF</a>
+                            <a href="#" class="download-btn" data-format="sheets">Sheets</a>
                         </div>
                     </div>
                 </div>
@@ -380,9 +512,9 @@
                             <span>Downloads: 1,567</span>
                         </div>
                         <div class="download-options">
-                            <a href="#" class="download-btn">Excel</a>
-                            <a href="#" class="download-btn">PDF</a>
-                            <a href="#" class="download-btn">Sheets</a>
+                            <a href="#" class="download-btn" data-format="excel">Excel</a>
+                            <a href="#" class="download-btn" data-format="pdf">PDF</a>
+                            <a href="#" class="download-btn" data-format="sheets">Sheets</a>
                         </div>
                     </div>
                 </div>
@@ -397,9 +529,9 @@
                             <span>Downloads: 2,134</span>
                         </div>
                         <div class="download-options">
-                            <a href="#" class="download-btn">Excel</a>
-                            <a href="#" class="download-btn">PDF</a>
-                            <a href="#" class="download-btn">Sheets</a>
+                            <a href="#" class="download-btn" data-format="excel">Excel</a>
+                            <a href="#" class="download-btn" data-format="pdf">PDF</a>
+                            <a href="#" class="download-btn" data-format="sheets">Sheets</a>
                         </div>
                     </div>
                 </div>
@@ -414,9 +546,9 @@
                             <span>Downloads: 1,245</span>
                         </div>
                         <div class="download-options">
-                            <a href="#" class="download-btn">Excel</a>
-                            <a href="#" class="download-btn">PDF</a>
-                            <a href="#" class="download-btn">Sheets</a>
+                            <a href="#" class="download-btn" data-format="excel">Excel</a>
+                            <a href="#" class="download-btn" data-format="pdf">PDF</a>
+                            <a href="#" class="download-btn" data-format="sheets">Sheets</a>
                         </div>
                     </div>
                 </div>
@@ -431,9 +563,172 @@
                             <span>Downloads: 987</span>
                         </div>
                         <div class="download-options">
-                            <a href="#" class="download-btn">Excel</a>
-                            <a href="#" class="download-btn">PDF</a>
-                            <a href="#" class="download-btn">Sheets</a>
+                            <a href="#" class="download-btn" data-format="excel">Excel</a>
+                            <a href="#" class="download-btn" data-format="pdf">PDF</a>
+                            <a href="#" class="download-btn" data-format="sheets">Sheets</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tools Section -->
+    <section class="tools-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Interactive Financial Tools</h2>
+                <p>Calculate and plan your finances with our easy-to-use tools</p>
+            </div>
+            
+            <div class="tool-container">
+                <div class="tool-tabs">
+                    <div class="tool-tab active" data-tool="monthly-budget">Monthly Budget Calculator</div>
+                    <div class="tool-tab" data-tool="savings-tracker">Savings Goal Tracker</div>
+                    <div class="tool-tab" data-tool="debt-planner">Debt Payoff Planner</div>
+                </div>
+                
+                <!-- Monthly Budget Calculator -->
+                <div class="tool-content active" id="monthly-budget-tool">
+                    <h3>Monthly Budget Calculator</h3>
+                    <div class="input-group">
+                        <label for="monthly-income">Monthly Income</label>
+                        <input type="number" id="monthly-income" placeholder="0">
+                    </div>
+                    
+                    <h4>Monthly Expenses</h4>
+                    <div class="input-group">
+                        <label for="housing-cost">Housing (Rent/Mortgage)</label>
+                        <input type="number" id="housing-cost" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="utilities-cost">Utilities</label>
+                        <input type="number" id="utilities-cost" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="food-cost">Food & Groceries</label>
+                        <input type="number" id="food-cost" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="transportation-cost">Transportation</label>
+                        <input type="number" id="transportation-cost" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="other-expenses-cost">Other Expenses</label>
+                        <input type="number" id="other-expenses-cost" placeholder="0">
+                    </div>
+                    
+                    <button class="btn" id="calculate-budget">Calculate Budget</button>
+                    
+                    <div class="results" id="budget-results">
+                        <h4>Your Budget Summary</h4>
+                        <div class="result-item">
+                            <span>Total Monthly Income:</span>
+                            <span id="total-monthly-income">$0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Total Monthly Expenses:</span>
+                            <span id="total-monthly-expenses">$0</span>
+                        </div>
+                        <div class="result-item result-total">
+                            <span>Monthly Savings:</span>
+                            <span id="monthly-savings-amount">$0</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="savings-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div style="text-align: center;">
+                            <span id="savings-percentage">0%</span> of income saved
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Savings Goal Tracker -->
+                <div class="tool-content" id="savings-tracker-tool">
+                    <h3>Savings Goal Tracker</h3>
+                    <div class="input-group">
+                        <label for="savings-goal">Savings Goal Amount</label>
+                        <input type="number" id="savings-goal" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="current-savings">Current Savings</label>
+                        <input type="number" id="current-savings" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="monthly-contribution">Monthly Contribution</label>
+                        <input type="number" id="monthly-contribution" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="interest-rate">Annual Interest Rate (%)</label>
+                        <input type="number" id="interest-rate" placeholder="0" step="0.1">
+                    </div>
+                    
+                    <button class="btn" id="calculate-savings">Calculate Savings Plan</button>
+                    
+                    <div class="results" id="savings-results">
+                        <h4>Your Savings Plan</h4>
+                        <div class="result-item">
+                            <span>Goal Amount:</span>
+                            <span id="goal-amount">$0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Current Savings:</span>
+                            <span id="current-amount">$0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Amount Needed:</span>
+                            <span id="amount-needed">$0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Months to Goal:</span>
+                            <span id="months-to-goal">0</span>
+                        </div>
+                        <div class="result-item result-total">
+                            <span>Projected Completion:</span>
+                            <span id="completion-date">-</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="savings-goal-progress" style="width: 0%"></div>
+                        </div>
+                        <div style="text-align: center;">
+                            <span id="goal-progress">0%</span> of goal achieved
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Debt Payoff Planner -->
+                <div class="tool-content" id="debt-planner-tool">
+                    <h3>Debt Payoff Planner</h3>
+                    <div class="input-group">
+                        <label for="debt-strategy">Payoff Strategy</label>
+                        <select id="debt-strategy">
+                            <option value="snowball">Debt Snowball (Smallest balance first)</option>
+                            <option value="avalanche">Debt Avalanche (Highest interest first)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="debts-container">
+                        <div class="debt-item">
+                            <input type="text" placeholder="Debt Name" class="debt-name">
+                            <input type="number" placeholder="Balance" class="debt-balance">
+                            <input type="number" placeholder="Interest %" class="debt-interest" step="0.1">
+                            <input type="number" placeholder="Monthly Payment" class="debt-payment">
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="add-debt">+ Add Another Debt</button>
+                    <button class="btn" id="calculate-debt">Calculate Payoff Plan</button>
+                    
+                    <div class="results" id="debt-results">
+                        <h4>Your Debt Payoff Plan</h4>
+                        <div id="debt-payoff-schedule"></div>
+                        <div class="result-item result-total">
+                            <span>Total Payoff Time:</span>
+                            <span id="total-payoff-time">-</span>
+                        </div>
+                        <div class="result-item result-total">
+                            <span>Total Interest Paid:</span>
+                            <span id="total-interest-paid">$0</span>
                         </div>
                     </div>
                 </div>
@@ -483,6 +778,16 @@
     </footer>
 
     <script>
+        // Google Analytics tracking
+        function trackEvent(category, action, label) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', action, {
+                    'event_category': category,
+                    'event_label': label
+                });
+            }
+        }
+
         // Template filtering functionality
         document.addEventListener('DOMContentLoaded', function() {
             const filterButtons = document.querySelectorAll('.filter-btn');
@@ -490,13 +795,11 @@
             
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    // Update active button
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
                     
                     const filter = this.getAttribute('data-filter');
                     
-                    // Filter templates
                     templateCards.forEach(card => {
                         if (filter === 'all' || card.getAttribute('data-category') === filter) {
                             card.style.display = 'block';
@@ -504,17 +807,191 @@
                             card.style.display = 'none';
                         }
                     });
+                    
+                    trackEvent('templates', 'filter', filter);
                 });
             });
             
-            // Simulate download functionality
+            // Download functionality
             document.querySelectorAll('.download-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const format = this.textContent;
-                    alert(`Thank you! Your ${format} template download will start shortly.`);
-                    // In a real implementation, this would trigger an actual file download
+                    const format = this.getAttribute('data-format');
+                    const templateName = this.closest('.template-card').querySelector('h3').textContent;
+                    
+                    const downloadMessages = {
+                        'excel': 'Excel spreadsheet',
+                        'pdf': 'PDF document', 
+                        'sheets': 'Google Sheets template'
+                    };
+                    
+                    alert(`✅ Downloading ${downloadMessages[format]} for: "${templateName}"`);
+                    
+                    // Update download counter
+                    const downloadCount = this.closest('.template-card').querySelector('.template-meta span:last-child');
+                    const currentCount = parseInt(downloadCount.textContent.replace('Downloads: ', '').replace(',', ''));
+                    downloadCount.textContent = `Downloads: ${(currentCount + 1).toLocaleString()}`;
+                    
+                    trackEvent('download', 'template', `${templateName} - ${format}`);
                 });
+            });
+            
+            // Tool tabs functionality
+            const toolTabs = document.querySelectorAll('.tool-tab');
+            const toolContents = document.querySelectorAll('.tool-content');
+            
+            toolTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const toolId = this.getAttribute('data-tool');
+                    
+                    toolTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    toolContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${toolId}-tool`) {
+                            content.classList.add('active');
+                        }
+                    });
+                    
+                    trackEvent('tools', 'switch_tab', toolId);
+                });
+            });
+            
+            // Monthly Budget Calculator
+            document.getElementById('calculate-budget').addEventListener('click', function() {
+                const income = parseFloat(document.getElementById('monthly-income').value) || 0;
+                const housing = parseFloat(document.getElementById('housing-cost').value) || 0;
+                const utilities = parseFloat(document.getElementById('utilities-cost').value) || 0;
+                const food = parseFloat(document.getElementById('food-cost').value) || 0;
+                const transportation = parseFloat(document.getElementById('transportation-cost').value) || 0;
+                const other = parseFloat(document.getElementById('other-expenses-cost').value) || 0;
+                
+                const totalExpenses = housing + utilities + food + transportation + other;
+                const savings = income - totalExpenses;
+                const savingsPercentage = income > 0 ? (savings / income) * 100 : 0;
+                
+                document.getElementById('total-monthly-income').textContent = `$${income.toFixed(2)}`;
+                document.getElementById('total-monthly-expenses').textContent = `$${totalExpenses.toFixed(2)}`;
+                document.getElementById('monthly-savings-amount').textContent = `$${savings.toFixed(2)}`;
+                document.getElementById('savings-percentage').textContent = `${savingsPercentage.toFixed(1)}%`;
+                document.getElementById('savings-progress-bar').style.width = `${Math.min(savingsPercentage, 100)}%`;
+                
+                document.getElementById('budget-results').classList.add('active');
+                trackEvent('calculator', 'monthly_budget', `savings_${savingsPercentage.toFixed(0)}%`);
+            });
+            
+            // Savings Goal Tracker
+            document.getElementById('calculate-savings').addEventListener('click', function() {
+                const goal = parseFloat(document.getElementById('savings-goal').value) || 0;
+                const current = parseFloat(document.getElementById('current-savings').value) || 0;
+                const monthly = parseFloat(document.getElementById('monthly-contribution').value) || 0;
+                const interest = parseFloat(document.getElementById('interest-rate').value) || 0;
+                
+                const needed = Math.max(0, goal - current);
+                const monthlyRate = interest / 100 / 12;
+                
+                let months = 0;
+                let balance = current;
+                
+                if (monthly > 0) {
+                    while (balance < goal && months < 600) { // Max 50 years
+                        balance = balance * (1 + monthlyRate) + monthly;
+                        months++;
+                    }
+                }
+                
+                const progress = goal > 0 ? (current / goal) * 100 : 0;
+                const completionDate = new Date();
+                completionDate.setMonth(completionDate.getMonth() + months);
+                
+                document.getElementById('goal-amount').textContent = `$${goal.toFixed(2)}`;
+                document.getElementById('current-amount').textContent = `$${current.toFixed(2)}`;
+                document.getElementById('amount-needed').textContent = `$${needed.toFixed(2)}`;
+                document.getElementById('months-to-goal').textContent = months;
+                document.getElementById('completion-date').textContent = completionDate.toLocaleDateString();
+                document.getElementById('goal-progress').textContent = `${progress.toFixed(1)}%`;
+                document.getElementById('savings-goal-progress').style.width = `${Math.min(progress, 100)}%`;
+                
+                document.getElementById('savings-results').classList.add('active');
+                trackEvent('calculator', 'savings_goal', `goal_${goal}`);
+            });
+            
+            // Debt Payoff Planner
+            document.getElementById('add-debt').addEventListener('click', function() {
+                const container = document.getElementById('debts-container');
+                const newDebt = document.createElement('div');
+                newDebt.className = 'debt-item';
+                newDebt.innerHTML = `
+                    <input type="text" placeholder="Debt Name" class="debt-name">
+                    <input type="number" placeholder="Balance" class="debt-balance">
+                    <input type="number" placeholder="Interest %" class="debt-interest" step="0.1">
+                    <input type="number" placeholder="Monthly Payment" class="debt-payment">
+                `;
+                container.appendChild(newDebt);
+            });
+            
+            document.getElementById('calculate-debt').addEventListener('click', function() {
+                const strategy = document.getElementById('debt-strategy').value;
+                const debts = [];
+                let totalInterest = 0;
+                
+                document.querySelectorAll('.debt-item').forEach(item => {
+                    const name = item.querySelector('.debt-name').value || 'Debt';
+                    const balance = parseFloat(item.querySelector('.debt-balance').value) || 0;
+                    const interest = parseFloat(item.querySelector('.debt-interest').value) || 0;
+                    const payment = parseFloat(item.querySelector('.debt-payment').value) || 0;
+                    
+                    if (balance > 0) {
+                        debts.push({ name, balance, interest, payment });
+                    }
+                });
+                
+                // Sort debts based on strategy
+                if (strategy === 'snowball') {
+                    debts.sort((a, b) => a.balance - b.balance);
+                } else {
+                    debts.sort((a, b) => b.interest - a.interest);
+                }
+                
+                let scheduleHTML = '<h5>Payoff Schedule:</h5>';
+                let month = 0;
+                let totalMonths = 0;
+                
+                debts.forEach(debt => {
+                    let balance = debt.balance;
+                    const monthlyRate = debt.interest / 100 / 12;
+                    let debtMonths = 0;
+                    let debtInterest = 0;
+                    
+                    while (balance > 0 && debtMonths < 600) {
+                        const interest = balance * monthlyRate;
+                        const principal = Math.min(balance, debt.payment - interest);
+                        
+                        balance -= principal;
+                        debtInterest += interest;
+                        debtMonths++;
+                    }
+                    
+                    totalMonths = Math.max(totalMonths, month + debtMonths);
+                    totalInterest += debtInterest;
+                    
+                    scheduleHTML += `
+                        <div class="result-item">
+                            <span>${debt.name}:</span>
+                            <span>${debtMonths} months</span>
+                        </div>
+                    `;
+                    
+                    month += debtMonths;
+                });
+                
+                document.getElementById('debt-payoff-schedule').innerHTML = scheduleHTML;
+                document.getElementById('total-payoff-time').textContent = `${totalMonths} months (${Math.floor(totalMonths/12)} years ${totalMonths%12} months)`;
+                document.getElementById('total-interest-paid').textContent = `$${totalInterest.toFixed(2)}`;
+                
+                document.getElementById('debt-results').classList.add('active');
+                trackEvent('calculator', 'debt_plan', `strategy_${strategy}`);
             });
         });
     </script>
