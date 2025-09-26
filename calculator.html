@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Calculator - BudgetSimple</title>
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --primary-dark: #1F6B47;
+            --secondary: #FFD700;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --gray: #6C757D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Calculator Section */
+        .calculator {
+            padding: 4rem 0;
+        }
+        
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .calculator-form {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .calculator-results {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .calculator-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab {
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .calculator-content {
+            display: none;
+        }
+        
+        .calculator-content.active {
+            display: block;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .input-group small {
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+        
+        .results {
+            margin-top: 2rem;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .result-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-top: 2px solid #ddd;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+        
+        .savings-tip {
+            background: #e8f5e9;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1.5rem;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="index.html" class="logo">BudgetSimple</a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="templates.html">Templates</a></li>
+                    <li><a href="calculator.html" class="active">Calculator</a></li>
+                    <li><a href="articles.html">Articles</a></li>
+                    <li><a href="index.html" class="btn">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Budget Calculator</h1>
+            <p>Calculate your income, expenses, and savings in seconds</p>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator">
+        <div class="container">
+            <div class="calculator-container">
+                <div class="calculator-form">
+                    <div class="section-title">
+                        <h2>Enter Your Numbers</h2>
+                        <p>Fill in your monthly income and expenses</p>
+                    </div>
+                    
+                    <div class="calculator-tabs">
+                        <div class="tab active" data-tab="income">Income</div>
+                        <div class="tab" data-tab="expenses">Expenses</div>
+                    </div>
+                    
+                    <div class="calculator-content active" id="income-content">
+                        <h3>Monthly Income</h3>
+                        <div class="input-group">
+                            <label for="salary">Salary/Wages</label>
+                            <input type="number" id="salary" placeholder="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="side-income">Side Income</label>
+                            <input type="number" id="side-income" placeholder="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="other-income">Other Income</label>
+                            <input type="number" id="other-income" placeholder="0">
+                        </div>
+                        <button class="btn" id="next-to-expenses" style="width: 100%;">Next: Expenses</button>
+                    </div>
+                    
+                    <div class="calculator-content" id="expenses-content">
+                        <h3>Monthly Expenses</h3>
+                        <div class="input-group">
+                            <label for="housing">Housing (Rent/Mortgage)</label>
+                            <input type="number" id="housing" placeholder="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="utilities">Utilities</label>
+                            <input type="number" id="utilities" placeholder="0">
+                            <small>Electricity, water, gas, internet, etc.</small>
+                        </div>
+                        <div class="input-group">
+                            <label for="food">Food & Groceries</label>
+                            <input type="number" id="food" placeholder="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="transportation">Transportation</label>
+                            <input type="number" id="transportation" placeholder="0">
+                            <small>Gas, public transport, car payment, etc.</small>
+                        </div>
+                        <div class="input-group">
+                            <label for="entertainment">Entertainment</label>
+                            <input type="number" id="entertainment" placeholder="0">
+                        </div>
+                        <div class="input-group">
+                            <label for="other-expenses">Other Expenses</label>
+                            <input type="number" id="other-expenses" placeholder="0">
+                        </div>
+                        <button class="btn" id="calculate-results" style="width: 100%;">Calculate Budget</button>
+                    </div>
+                </div>
+                
+                <div class="calculator-results">
+                    <div class="section-title">
+                        <h2>Your Budget Summary</h2>
+                        <p>See where your money is going</p>
+                    </div>
+                    
+                    <div class="results" id="results">
+                        <p>Enter your income and expenses to see your budget breakdown.</p>
+                        
+                        <div id="results-content" style="display: none;">
+                            <div class="result-item">
+                                <span>Total Monthly Income:</span>
+                                <span id="total-income">$0</span>
+                            </div>
+                            <div class="result-item">
+                                <span>Total Monthly Expenses:</span>
+                                <span id="total-expenses">$0</span>
+                            </div>
+                            <div class="result-item result-total">
+                                <span>Monthly Savings:</span>
+                                <span id="monthly-savings">$0</span>
+                            </div>
+                            
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="savings-progress" style="width: 0%"></div>
+                            </div>
+                            <div style="text-align: center; font-size: 0.9rem; color: var(--gray);">
+                                <span id="savings-percentage">0%</span> of income saved
+                            </div>
+                            
+                            <div class="savings-tip" id="savings-tip">
+                                Start by tracking your expenses to identify saving opportunities.
+                            </div>
+                            
+                            <button class="btn" id="start-over" style="width: 100%; margin-top: 1rem;">Start Over</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BudgetSimple</h3>
+                    <p>Your simple solution for personal finance management.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="templates.html">Templates</a></li>
+                        <li><a href="calculator.html">Calculator</a></li>
+                        <li><a href="articles.html">Articles</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Budgeting Guide</a></li>
+                        <li><a href="#">Saving Tips</a></li>
+                        <li><a href="#">Debt Management</a></li>
+                        <li><a href="#">Investment Basics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@budgetsimple.com">info@budgetsimple.com</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BudgetSimple. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.calculator-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-content`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Navigation
+            document.getElementById('next-to-expenses').addEventListener('click', () => {
+                document.querySelector('.tab[data-tab="expenses"]').click();
+            });
+            
+            document.getElementById('calculate-results').addEventListener('click', calculateResults);
+            document.getElementById('start-over').addEventListener('click', startOver);
+            
+            function calculateResults() {
+                // Get income values
+                const salary = parseFloat(document.getElementById('salary').value) || 0;
+                const sideIncome = parseFloat(document.getElementById('side-income').value) || 0;
+                const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+                const totalIncome = salary + sideIncome + otherIncome;
+                
+                // Get expense values
+                const housing = parseFloat(document.getElementById('housing').value) || 0;
+                const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+                const food = parseFloat(document.getElementById('food').value) || 0;
+                const transportation = parseFloat(document.getElementById('transportation').value) || 0;
+                const entertainment = parseFloat(document.getElementById('entertainment').value) || 0;
+                const otherExpenses = parseFloat(document.getElementById('other-expenses').value) || 0;
+                const totalExpenses = housing + utilities + food + transportation + entertainment + otherExpenses;
+                
+                // Calculate savings
+                const monthlySavings = totalIncome - totalExpenses;
+                const savingsPercentage = totalIncome > 0 ? (monthlySavings / totalIncome) * 100 : 0;
+                
+                // Update results
+                document.getElementById('total-income').textContent = `$${totalIncome.toFixed(2)}`;
+                document.getElementById('total-expenses').textContent = `$${totalExpenses.toFixed(2)}`;
+                document.getElementById('monthly-savings').textContent = `$${monthlySavings.toFixed(2)}`;
+                document.getElementById('savings-percentage').textContent = `${savingsPercentage.toFixed(1)}%`;
+                document.getElementById('savings-progress').style.width = `${Math.min(savingsPercentage, 100)}%`;
+                
+                // Style savings based on value
+                const savingsElement = document.getElementById('monthly-savings');
+                if (monthlySavings < 0) {
+                    savingsElement.style.color = '#e74c3c';
+                } else {
+                    savingsElement.style.color = '#2e8b57';
+                }
+                
+                // Provide savings tip
+                const tipElement = document.getElementById('savings-tip');
+                if (monthlySavings < 0) {
+                    tipElement.innerHTML = '<strong>Tip:</strong> Your expenses exceed your income. Consider reducing discretionary spending or increasing your income.';
+                    tipElement.style.background = '#ffebee';
+                    tipElement.style.borderLeftColor = '#e74c3c';
+                } else if (savingsPercentage < 10) {
+                    tipElement.innerHTML = '<strong>Tip:</strong> Try to save at least 10-20% of your income. Look for areas to reduce expenses.';
+                    tipElement.style.background = '#fff3e0';
+                    tipElement.style.borderLeftColor = '#ffa000';
+                } else {
+                    tipElement.innerHTML = '<strong>Great job!</strong> You\'re saving a healthy portion of your income. Consider investing your savings.';
+                    tipElement.style.background = '#e8f5e9';
+                    tipElement.style.borderLeftColor = '#2e8b57';
+                }
+                
+                // Show results
+                document.getElementById('results-content').style.display = 'block';
+                document.querySelector('.results p').style.display = 'none';
+            }
+            
+            function startOver() {
+                // Clear all inputs
+                const inputs = document.querySelectorAll('input[type="number"]');
+                inputs.forEach(input => input.value = '');
+                
+                // Reset results
+                document.getElementById('results-content').style.display = 'none';
+                document.querySelector('.results p').style.display = 'block';
+                
+                // Go back to first tab
+                document.querySelector('.tab[data-tab="income"]').click();
+            }
+        });
+    </script>
+</body>
+</html>

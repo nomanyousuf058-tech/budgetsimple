@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetSimple - Free Budget Templates & Financial Tools</title>
+    <style>
+        :root {
+            --primary: #2E8B57;
+            --primary-dark: #1F6B47;
+            --secondary: #FFD700;
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --gray: #6C757D;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Calculator Section */
+        .calculator {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+        
+        .calculator-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .calculator-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tab {
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .calculator-content {
+            display: none;
+        }
+        
+        .calculator-content.active {
+            display: block;
+        }
+        
+        .input-group {
+            margin-bottom: 1rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .results.active {
+            display: block;
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            border-top: 1px solid #ddd;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Templates Section */
+        .templates {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .template-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .template-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .template-img {
+            height: 150px;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 3rem;
+        }
+        
+        .template-content {
+            padding: 1.5rem;
+        }
+        
+        .template-content h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+            }
+            
+            .nav-links li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">BudgetSimple</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#templates">Templates</a></li>
+                    <li><a href="#calculator">Calculator</a></li>
+                    <li><a href="#articles">Articles</a></li>
+                    <li><a href="#" class="btn">Get Started</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Take Control of Your Finances</h1>
+            <p>Free budget templates, simple calculators, and expert advice to help you achieve financial stability.</p>
+            <a href="#templates" class="btn" style="background: var(--secondary); color: var(--dark);">Get Free Templates</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Everything You Need to Manage Your Money</h2>
+                <p>BudgetSimple provides the tools and knowledge to improve your financial health</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Free Templates</h3>
+                    <p>Download professionally designed budget templates for Excel, Google Sheets, and PDF.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧮</div>
+                    <h3>Simple Calculators</h3>
+                    <p>Easy-to-use calculators for budgeting, savings goals, debt payoff, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Expert Articles</h3>
+                    <p>Learn personal finance basics and advanced strategies from financial experts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator" id="calculator">
+        <div class="container">
+            <div class="section-title">
+                <h2>Budget Calculator</h2>
+                <p>Quickly calculate your income, expenses, and savings</p>
+            </div>
+            <div class="calculator-container">
+                <div class="calculator-tabs">
+                    <div class="tab active" data-tab="income">Income</div>
+                    <div class="tab" data-tab="expenses">Expenses</div>
+                    <div class="tab" data-tab="results">Results</div>
+                </div>
+                
+                <div class="calculator-content active" id="income-content">
+                    <h3>Enter Your Income Sources</h3>
+                    <div class="input-group">
+                        <label for="salary">Monthly Salary/Wages</label>
+                        <input type="number" id="salary" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="other-income">Other Monthly Income</label>
+                        <input type="number" id="other-income" placeholder="0">
+                    </div>
+                    <button class="btn" id="next-to-expenses">Next: Expenses</button>
+                </div>
+                
+                <div class="calculator-content" id="expenses-content">
+                    <h3>Enter Your Monthly Expenses</h3>
+                    <div class="input-group">
+                        <label for="housing">Housing (Rent/Mortgage)</label>
+                        <input type="number" id="housing" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="utilities">Utilities</label>
+                        <input type="number" id="utilities" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="food">Food & Groceries</label>
+                        <input type="number" id="food" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="transportation">Transportation</label>
+                        <input type="number" id="transportation" placeholder="0">
+                    </div>
+                    <div class="input-group">
+                        <label for="other-expenses">Other Expenses</label>
+                        <input type="number" id="other-expenses" placeholder="0">
+                    </div>
+                    <button class="btn" id="calculate-results">Calculate Results</button>
+                </div>
+                
+                <div class="calculator-content" id="results-content">
+                    <h3>Your Budget Summary</h3>
+                    <div class="results" id="results">
+                        <div class="result-item">
+                            <span>Total Monthly Income:</span>
+                            <span id="total-income">$0</span>
+                        </div>
+                        <div class="result-item">
+                            <span>Total Monthly Expenses:</span>
+                            <span id="total-expenses">$0</span>
+                        </div>
+                        <div class="result-item result-total">
+                            <span>Monthly Savings:</span>
+                            <span id="monthly-savings">$0</span>
+                        </div>
+                    </div>
+                    <button class="btn" id="start-over">Start Over</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section class="templates" id="templates">
+        <div class="container">
+            <div class="section-title">
+                <h2>Free Budget Templates</h2>
+                <p>Choose the template that works best for your financial situation</p>
+            </div>
+            <div class="templates-grid">
+                <div class="template-card">
+                    <div class="template-img">📅</div>
+                    <div class="template-content">
+                        <h3>Monthly Budget</h3>
+                        <p>Simple template for tracking monthly income and expenses.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Download</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-img">🎯</div>
+                    <div class="template-content">
+                        <h3>Savings Goal Tracker</h3>
+                        <p>Plan and track progress toward your financial goals.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Download</a>
+                    </div>
+                </div>
+                <div class="template-card">
+                    <div class="template-img">💸</div>
+                    <div class="template-content">
+                        <h3>Debt Payoff Planner</h3>
+                        <p>Create a strategy to eliminate debt efficiently.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">Download</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BudgetSimple</h3>
+                    <p>Your simple solution for personal finance management.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#templates">Templates</a></li>
+                        <li><a href="#calculator">Calculator</a></li>
+                        <li><a href="#articles">Articles</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Budgeting Guide</a></li>
+                        <li><a href="#">Saving Tips</a></li>
+                        <li><a href="#">Debt Management</a></li>
+                        <li><a href="#">Investment Basics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@budgetsimple.com">info@budgetsimple.com</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BudgetSimple. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Calculator functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.calculator-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // Show corresponding content
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabId}-content`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // Navigation between calculator steps
+            document.getElementById('next-to-expenses').addEventListener('click', () => {
+                document.querySelector('.tab[data-tab="expenses"]').click();
+            });
+            
+            document.getElementById('calculate-results').addEventListener('click', calculateResults);
+            document.getElementById('start-over').addEventListener('click', startOver);
+            
+            function calculateResults() {
+                // Get income values
+                const salary = parseFloat(document.getElementById('salary').value) || 0;
+                const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+                const totalIncome = salary + otherIncome;
+                
+                // Get expense values
+                const housing = parseFloat(document.getElementById('housing').value) || 0;
+                const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+                const food = parseFloat(document.getElementById('food').value) || 0;
+                const transportation = parseFloat(document.getElementById('transportation').value) || 0;
+                const otherExpenses = parseFloat(document.getElementById('other-expenses').value) || 0;
+                const totalExpenses = housing + utilities + food + transportation + otherExpenses;
+                
+                // Calculate savings
+                const monthlySavings = totalIncome - totalExpenses;
+                
+                // Update results
+                document.getElementById('total-income').textContent = `$${totalIncome.toFixed(2)}`;
+                document.getElementById('total-expenses').textContent = `$${totalExpenses.toFixed(2)}`;
+                document.getElementById('monthly-savings').textContent = `$${monthlySavings.toFixed(2)}`;
+                
+                // Style savings based on value
+                const savingsElement = document.getElementById('monthly-savings');
+                if (monthlySavings < 0) {
+                    savingsElement.style.color = '#e74c3c';
+                } else {
+                    savingsElement.style.color = '#2e8b57';
+                }
+                
+                // Show results and switch to results tab
+                document.getElementById('results').classList.add('active');
+                document.querySelector('.tab[data-tab="results"]').click();
+            }
+            
+            function startOver() {
+                // Clear all inputs
+                const inputs = document.querySelectorAll('input[type="number"]');
+                inputs.forEach(input => input.value = '');
+                
+                // Reset results display
+                document.getElementById('results').classList.remove('active');
+                
+                // Go back to first tab
+                document.querySelector('.tab[data-tab="income"]').click();
+            }
+        });
+    </script>
+</body>
+</html>
