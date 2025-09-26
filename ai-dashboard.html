@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-    <title>BudgetSimple AI Manager</title>
-    <script>
-        // Simple password protection
-        const storedPassword = localStorage.getItem('adminPassword');
-        if (!storedPassword) {
-            const password = prompt('Enter Admin Password:');
-            if (password === 'budget2024') { // Change this!
-                localStorage.setItem('adminPassword', 'true');
-            } else {
-                alert('Access Denied');
-                window.location.href = 'index.html';
-            }
-        }
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BudgetSimple AI Manager</title>
+    <script>
+        // Fixed password protection - placed BEFORE any content
+        (function() {
+            // Check if already logged in this session
+            if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+                return; // Allow access
+            }
+            
+            let attempts = 0;
+            const maxAttempts = 3;
+            const correctPassword = "Admin123"; // Your password
+            
+            while (attempts < maxAttempts) {
+                const enteredPassword = prompt('Enter Admin Password:');
+                
+                if (enteredPassword === null) {
+                    // User clicked cancel
+                    window.location.href = 'index.html';
+                    return;
+                }
+                
+                if (enteredPassword === correctPassword) {
+                    sessionStorage.setItem('adminAuthenticated', 'true');
+                    return; // Success - continue loading page
+                } else {
+                    attempts++;
+                    const remaining = maxAttempts - attempts;
+                    if (remaining > 0) {
+                        alert(`Wrong password! ${remaining} attempts remaining.`);
+                    } else {
+                        alert('Too many failed attempts. Access denied.');
+                        window.location.href = 'index.html';
+                        return;
+                    }
+                }
+            }
+        })();
+    </script>
     <style>
         :root {
             --primary: #2E8B57;
@@ -353,6 +376,19 @@
             background: var(--danger);
         }
         
+        .logout-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        
         @media (max-width: 768px) {
             .container {
                 flex-direction: column;
@@ -365,10 +401,18 @@
             .stats-cards {
                 grid-template-columns: 1fr;
             }
+            
+            .logout-btn {
+                position: static;
+                margin: 1rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Logout Button -->
+    <button class="logout-btn" onclick="logout()">Logout</button>
+    
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
@@ -679,6 +723,13 @@
     <div class="notification" id="notification"></div>
 
     <script>
+        // Logout function
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            alert('Logged out successfully');
+            window.location.href = 'index.html';
+        }
+        
         // Tab switching functionality
         document.querySelectorAll('.sidebar-menu a').forEach(link => {
             link.addEventListener('click', function(e) {
