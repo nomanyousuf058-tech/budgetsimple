@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
+    <title>BudgetSimple AI Manager</title>
+    <script>
+        // Simple password protection
+        const storedPassword = localStorage.getItem('adminPassword');
+        if (!storedPassword) {
+            const password = prompt('Enter Admin Password:');
+            if (password === 'budget2024') { // Change this!
+                localStorage.setItem('adminPassword', 'true');
+            } else {
+                alert('Access Denied');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BudgetSimple AI Manager</title>
